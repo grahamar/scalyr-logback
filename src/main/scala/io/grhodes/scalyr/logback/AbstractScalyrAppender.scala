@@ -27,21 +27,21 @@ private[logback] abstract class AbstractScalyrAppender[E]() extends Unsynchroniz
       this.layout.start()
     }
 
-    val serverAttributes = new EventAttributes()
+    val eventAttributes = new EventAttributes()
     if (getServerHost().length() > 0) {
-      serverAttributes.put("serverHost", getServerHost())
+      eventAttributes.put("serverHost", getServerHost())
     }
-    serverAttributes.put("logfile", getLogfile())
-    serverAttributes.put("parser", getParser())
+    eventAttributes.put("logfile", getLogfile())
+    eventAttributes.put("parser", getParser())
 
     this.serverAttributes.foreach {
-      case (key, value) => serverAttributes.put(key, value)
+      case (key, value) => eventAttributes.put(key, value)
     }
 
     if (this.apiKey != null && !"".equals(this.apiKey.trim())) {
       // default to 4MB if not set.
       val maxBufferRam = Option(this.maxBufferRam).getOrElse(4194304L)
-      Events.init(this.apiKey.trim(), maxBufferRam.toInt, null, serverAttributes)
+      Events.init(this.apiKey.trim(), maxBufferRam.toInt, null, eventAttributes)
       super.start()
     } else {
       addError("Cannot initialize logging. No Scalyr API Key has been set.")
