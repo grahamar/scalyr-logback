@@ -16,6 +16,11 @@ Simple `logback.xml` configuration:
         <apiKey>API_TOKEN</apiKey>
         <logfile>application</logfile>
         <parser>slf4j</parser>
+        <serverAttributes>application_id=${APPID}</serverAttributes>
+        <serverAttributes>application_version=${APPLICATION_VERSION}</serverAttributes>
+        <serverAttributes>stack=${STACK}</serverAttributes>
+        <serverAttributes>source=${SOURCE}</serverAttributes>
+        <serverAttributes>image=${IMAGE}</serverAttributes>
     </appender>
     ...
 </configuration>
